@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TicketingProjectMVC {
 
     public static void main(String[] args) {
-        SpringApplication.run(TicketingProjectMVC.class, args);
+         SpringApplication.run(TicketingProjectMVC.class, args);
     }
 
 }
