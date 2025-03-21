@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter(AccessLevel.PUBLIC)
 @AllArgsConstructor
 public enum Gender {
-    MALE("male"),FEMALE("female");
+    MALE("Male"),FEMALE("Female");
     private String genderType;
 
 //     Gender(String genderType){

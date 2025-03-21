@@ -2,34 +2,53 @@ package com.cydeo.service.serviceImpl;
 
 import com.cydeo.dto.UserDTO;
 import com.cydeo.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements UserService {
-   protected Map<String,UserDTO> map=new HashMap<>();
+public class UserServiceImpl extends AbstractMapMockDB<String,UserDTO> implements UserService {
+
     @Override
     public UserDTO save(UserDTO object) {
-        map.put(object.getUserName(),object);
-        return object;
+         // Primary key needs to be added if necessary
+        return super.save(object.getUserName(),object);
     }
 
     @Override
     public UserDTO findById(String userName) {
-        return map.get(userName);
+        return super.findById(userName);
     }
 
     @Override
     public List<UserDTO> findAll() {
-        return new ArrayList<>(map.values());
+          return super.findAll();
+    }
+
+    @Override
+    public void update(String userName, UserDTO object) {
+        super.update(userName,object);
     }
 
     @Override
     public void deleteById(String userName) {
-        map.remove(userName);
+       super.deleteById(userName);
+    }
+
+    @Override
+    public List<UserDTO> searchUser(String pattern) {
+        return this.findAll().stream()
+                .filter(userDTO->userDTO.getUserName().toLowerCase().contains(pattern.toLowerCase())
+                || (userDTO.getFirstName()+" "+userDTO.getLastName()).toLowerCase().contains(pattern.toLowerCase())
+                        || userDTO.getPhone().contains(pattern.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, UserDTO> createAll(List<UserDTO> list) {
+        return dbMap=list.stream()
+                .collect(Collectors.toMap(UserDTO::getUserName, UserDTO->UserDTO));
     }
 }

@@ -16,4 +16,6 @@ public interface UserService extends CurdService<String, UserDTO>{
 
     @Override
     void deleteById(String s);
+
+    List<UserDTO> searchUser(String pattern);
 }
