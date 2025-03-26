@@ -14,6 +14,9 @@ public class UserServiceImpl extends AbstractMapMockDB<String,UserDTO> implement
     @Override
     public UserDTO save(UserDTO object) {
          // Primary key needs to be added if necessary
+        if(!object.isEnabled())
+            object.setEnabled(true);
+
         return super.save(object.getUserName(),object);
     }
 
@@ -35,6 +38,11 @@ public class UserServiceImpl extends AbstractMapMockDB<String,UserDTO> implement
     @Override
     public void deleteById(String userName) {
        super.deleteById(userName);
+    }
+
+    @Override
+    public void softDeleteById(String userName) {
+        super.softDeleteById(userName);
     }
 
     @Override

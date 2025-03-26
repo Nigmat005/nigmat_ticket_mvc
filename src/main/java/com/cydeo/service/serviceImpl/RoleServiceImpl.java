@@ -34,7 +34,7 @@ public class RoleServiceImpl extends AbstractMapMockDB<Long,RoleDTO> implements 
 
     @Override
     public void deleteById(Long id) {
-        super.findById(id);
+        super.deleteById(id);
     }
 
 
