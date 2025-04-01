@@ -1,26 +1,34 @@
 package com.cydeo.bootstrap;
 
+import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Gender;
+import com.cydeo.enums.Status;
+import com.cydeo.service.ProjectService;
 import com.cydeo.service.RoleService;
 import com.cydeo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 @Component
+@EnableAutoConfiguration
 public class DataGenerator implements CommandLineRunner {
     private final RoleService roleService;
     private final UserService userService;
+    private final ProjectService projectService;
 
     @Autowired
-    public DataGenerator(RoleService roleService,UserService userService) {
+    public DataGenerator(RoleService roleService,UserService userService,ProjectService projectService) {
         this.roleService = roleService;
         this.userService=userService;
+        this.projectService=projectService;
 
     }
 
@@ -55,6 +63,13 @@ public class DataGenerator implements CommandLineRunner {
         // batch save UserDTo to Mock DB Map
         userService.createAll(new ArrayList<>(Arrays.asList(user1,user2,user3,user4,user5,user6,user7,user8)));
 
+
+        ProjectDTO project1 = new ProjectDTO("Spring MVC","PR001",user1, LocalDate.now(),LocalDate.now().plusDays(25),"Creating Controllers", Status.OPEN,false);
+        ProjectDTO project2 = new ProjectDTO("Spring ORM","PR002",user2, LocalDate.now(),LocalDate.now().plusDays(10),"Creating Database", Status.IN_PROGRESS,false);
+        ProjectDTO project3 = new ProjectDTO("Spring Container","PR003",user1, LocalDate.now(), LocalDate.now().plusDays(32),"Creating Container", Status.IN_PROGRESS,false);
+
+        // batch save ProjectDTO to Mock DB Map
+       projectService.createAll(new ArrayList<>(Arrays.asList(project1, project2, project3)));
 
     }
 }

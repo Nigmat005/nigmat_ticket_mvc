@@ -20,4 +20,6 @@ public interface UserService extends CurdService<String, UserDTO>{
     void softDeleteById(String s);
 
     List<UserDTO> searchUser(String pattern);
+
+    List<UserDTO> findManagers();
 }

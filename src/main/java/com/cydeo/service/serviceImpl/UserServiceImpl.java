@@ -2,7 +2,6 @@ package com.cydeo.service.serviceImpl;
 
 import com.cydeo.dto.UserDTO;
 import com.cydeo.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +54,15 @@ public class UserServiceImpl extends AbstractMapMockDB<String,UserDTO> implement
     }
 
     @Override
+    public List<UserDTO> findManagers() {
+        return this.findAll().stream()
+                .filter(eachUserDTO->eachUserDTO.getRole().getDescription().equalsIgnoreCase("Manager"))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Map<String, UserDTO> createAll(List<UserDTO> list) {
-        return dbMap=list.stream()
+        return this.dbMap=list.stream()
                 .collect(Collectors.toMap(UserDTO::getUserName, UserDTO->UserDTO));
     }
 }

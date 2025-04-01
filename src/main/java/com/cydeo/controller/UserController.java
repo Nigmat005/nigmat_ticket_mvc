@@ -24,7 +24,7 @@ public class UserController {
 
 
 
-    // pass object to Model using @@ModelAttribute as parameter in method
+    // pass object to Model using @ModelAttribute as parameter in method
 
 //    @RequestMapping(value="/create", method = RequestMethod.GET)
 //    public String createUser(@ModelAttribute("userDTO") UserDTO userDTO){
